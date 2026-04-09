@@ -1,4 +1,4 @@
-# RetailIQ — E-Commerce Customer Intelligence Platform
+# RetailIQ: E-Commerce Customer Intelligence Platform
 
 > K-Means Segmentation · NLP Sentiment Analysis · React + FastAPI
 
@@ -10,10 +10,10 @@ RetailIQ is a full-stack analytics dashboard that transforms raw e-commerce tran
 
 | Screen | What you see |
 |---|---|
-| **Dashboard** | KPI cards — total customers, segment count, avg order value, at-risk and lost counts |
+| **Dashboard** | KPI cards - total customers, segment count, avg order value, at-risk and lost counts |
 | **Segments** | PCA scatter plot of all customers coloured by cluster, with RFM hover tooltips and a segment profile bar chart |
 | **Sentiment Analyzer** | Paste any review text, get Positive / Neutral / Negative label + compound score + breakdown |
-| **Segment Insights** | Average sentiment score per customer segment — the key business insight |
+| **Segment Insights** | Average sentiment score per customer segment, the key business insight |
 
 ---
 
@@ -37,7 +37,7 @@ RetailIQ is a full-stack analytics dashboard that transforms raw e-commerce tran
 - joblib (model persistence)
 
 **Dataset**
-- [UCI Online Retail Dataset](https://archive.ics.uci.edu/ml/machine-learning-databases/00352/Online%20Retail.xlsx) — 541,909 transactions
+- [UCI Online Retail Dataset](https://archive.ics.uci.edu/ml/machine-learning-databases/00352/Online%20Retail.xlsx) - 541,909 transactions
 
 ---
 
@@ -46,7 +46,7 @@ RetailIQ is a full-stack analytics dashboard that transforms raw e-commerce tran
 ```
 ecommerce-analytics/
 ├── backend/
-│   ├── main.py               # FastAPI app — all endpoints
+│   ├── main.py               # FastAPI app, all endpoints
 │   ├── requirements.txt
 │   ├── ml/
 │   │   ├── train.py          # RFM feature engineering + K-Means + PCA
@@ -150,15 +150,15 @@ App runs at `http://localhost:5173`.
 
 ### Customer Segmentation (Unsupervised ML)
 
-1. **Data cleaning** — remove null CustomerIDs, returns (negative quantity), and zero-price entries
-2. **RFM feature engineering** — aggregate each customer into three features:
-   - **Recency** — days since last purchase (lower is better)
-   - **Frequency** — count of unique invoices (higher is better)
-   - **Monetary** — total spend in £ (higher is better)
-3. **Standardisation** — `StandardScaler` normalises all three features to zero mean and unit variance, required because K-Means is distance-based
-4. **K-Means clustering** — `k=4`, `n_init=10` to avoid local minima
-5. **Cluster labelling** — clusters sorted by mean Monetary descending and assigned: Champions → Loyal → At Risk → Lost
-6. **PCA** — applied after clustering, reduces 3D RFM space to 2D for scatter plot visualisation only
+1. **Data cleaning**: remove null CustomerIDs, returns (negative quantity), and zero-price entries
+2. **RFM feature engineering**: aggregate each customer into three features:
+   - **Recency**: days since last purchase (lower is better)
+   - **Frequency**: count of unique invoices (higher is better)
+   - **Monetary**: total spend in £ (higher is better)
+3. **Standardisation**: `StandardScaler` normalises all three features to zero mean and unit variance, required because K-Means is distance-based
+4. **K-Means clustering**: `k=4`, `n_init=10` to avoid local minima
+5. **Cluster labelling**: clusters sorted by mean Monetary descending and assigned: Champions → Loyal → At Risk → Lost
+6. **PCA**: applied after clustering, reduces 3D RFM space to 2D for scatter plot visualisation only
 
 ### Sentiment Analysis (NLP)
 
