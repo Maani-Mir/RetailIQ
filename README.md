@@ -115,7 +115,13 @@ python ml/train.py
 uvicorn main:app --reload
 ```
 
-API runs at `http://localhost:8000`. Visit `/docs` for the auto-generated Swagger UI.
+The above command will not run if you don't have uvicorn as a PATH variable in your system. In that case, run the following command
+
+```bash
+python -m uvicorn main:app --reload
+```
+
+API runs at `http://localhost:8000/stats`. Visit `/docs` for the auto-generated Swagger UI.
 
 ### 6. Set up and start the frontend
 
