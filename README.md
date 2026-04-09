@@ -138,8 +138,6 @@ App runs at `http://localhost:5173`.
 | `GET` | `/insights` | Average sentiment score per segment |
 | `POST` | `/sentiment` | Analyse any review text |
 
-### Example — POST /sentiment
-
 ---
 
 ## ML Methodology
