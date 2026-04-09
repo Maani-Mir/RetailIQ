@@ -108,15 +108,6 @@ Run this once. It cleans the data, engineers RFM features, trains K-Means, reduc
 python ml/train.py
 ```
 
-You should see output like:
-
-```
-Training complete. Segments found:
-Loyal        1243
-At Risk      1102
-Lost         1089
-Champions     904
-```
 
 ### 5. Start the backend server
 
@@ -140,7 +131,7 @@ App runs at `http://localhost:5173`.
 
 ## API Endpoints
 
-| Method | Endpoint | Description |
+| Method| Endpoint | Description |
 |---|---|---|
 | `GET` | `/stats` | Dashboard KPI metrics |
 | `GET` | `/segments` | Cluster scatter plot data + segment profiles |
@@ -148,25 +139,6 @@ App runs at `http://localhost:5173`.
 | `POST` | `/sentiment` | Analyse any review text |
 
 ### Example — POST /sentiment
-
-**Request**
-```json
-{
-  "text": "Shipping was incredibly slow and support never replied to my emails."
-}
-```
-
-**Response**
-```json
-{
-  "label": "Negative",
-  "compound": -0.6249,
-  "confidence": 62.5,
-  "positive": 0.0,
-  "neutral": 58.3,
-  "negative": 41.7
-}
-```
 
 ---
 
@@ -192,13 +164,6 @@ VADER (Valence Aware Dictionary and sEntiment Reasoner) is used for sentiment sc
 - `<= -0.05` → **Negative**
 - Between → **Neutral**
 
-### Why these models?
-
-**K-Means** is the right choice here because no labelled segment data exists — we cannot train a supervised classifier without knowing upfront who the Champions are. Unsupervised learning discovers the natural group structure in the data.
-
-**VADER** is the right choice given the constraints: a 2-day build, no GPU, and no labelled review dataset. It is also genuinely well-suited to short informal customer review text.
-
----
 
 ## Segment Reference
 
@@ -210,41 +175,3 @@ VADER (Valence Aware Dictionary and sEntiment Reasoner) is used for sentiment sc
 | **Lost** | No recent activity | ~298 days | ~1 order | £310 |
 
 ---
-
-## Business Actions by Segment
-
-| Segment | Sentiment | Recommended action |
-|---|---|---|
-| Champions | Strongly positive (+0.82) | Ask for public reviews, offer referral rewards |
-| Loyal | Positive (+0.31) | Cross-sell related products, maintain relationship |
-| At Risk | Slightly negative (-0.08) | Send personal re-engagement email, offer discount |
-| Lost | Strongly negative (-0.61) | Run win-back campaign or write off marketing spend |
-
----
-
-## Limitations
-
-- **Loosely coupled models** — the UCI dataset contains no review text, so sentiment scores in the Insights page use representative sample reviews per segment rather than actual reviews tied to CustomerIDs. In a production system with a joined dataset, the two models would connect on CustomerID.
-- **Fixed k=4** — the number of clusters was chosen based on marketing domain knowledge, not algorithmic selection. Running the elbow method or silhouette analysis on your specific dataset is recommended.
-- **VADER accuracy ceiling** — rule-based models have known limitations on nuanced or sarcastic text. For production-grade accuracy, a fine-tuned transformer model would outperform VADER.
-
----
-
-## Bootcamp Concepts Demonstrated
-
-| Concept | Implementation |
-|---|---|
-| Unsupervised ML | K-Means clustering on RFM features |
-| Dimensionality reduction | PCA (3D → 2D for visualisation) |
-| NLP | VADER sentiment analysis |
-| Feature engineering | RFM aggregation from raw transactions |
-| Supervised ML | VADER is a pre-trained supervised classifier |
-| Model persistence | joblib serialisation on training, fast load at API startup |
-| REST API | FastAPI with 4 endpoints + CORS + Pydantic schemas |
-| Frontend integration | React SPA consuming the API via Axios + Recharts visualisations |
-
----
-
-## License
-
-MIT
