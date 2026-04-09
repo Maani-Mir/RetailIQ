@@ -2,7 +2,7 @@
 
 > K-Means Segmentation · NLP Sentiment Analysis · React + FastAPI
 
-RetailIQ is a full-stack analytics dashboard that transforms raw e-commerce transaction data into actionable customer intelligence. It automatically segments customers into behavioural groups using unsupervised machine learning, scores review sentiment using NLP, and surfaces the combined insight in an interactive dashboard — no data science expertise required to use it.
+RetailIQ is a full-stack analytics dashboard that transforms raw e-commerce transaction data into actionable customer intelligence. It automatically segments customers into behavioural groups using unsupervised machine learning, scores review sentiment using NLP, and surfaces the combined insight in an interactive dashboard.
 
 ---
 
